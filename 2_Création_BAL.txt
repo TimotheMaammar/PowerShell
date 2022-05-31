@@ -1,0 +1,17 @@
+# Faire Ctrl-H puis "Remplacer tout" sur 'FONCTION' en mettant la bonne fonction
+# Gaffe aux espaces
+# Gaffe à bien changer les attributs
+
+# Création d'une boîte aux lettres
+New-Mailbox -Alias FONCTION -Name FONCTION -DisplayName FONCTION -UserPrincipalName FONCTION@XXX.fr -Database XXX -Password (ConvertTo-SecureString -String 'MDP_A_CHANGER' -AsPlainText -Force) -OrganizationalUnit XXX.fr/XXX/00_Exchange/Utilisateurs -AccountDisabled 
+
+# Donner les droits "Envoyer en tant que"
+Add-ADPermission FONCTION -ExtendedRights Send-As -User groupe_uni_FONCTION
+
+# Ajout du droit "Contrôle total" au groupe universel
+Add-MailboxPermission -Identity FONCTION -user groupe_uni_FONCTION -AccessRights FullAccess -InheritanceType All
+
+# Mise en place des attributs personalisés pour la liste de diffusion
+Set-MailBox -Identity FONCTION -CustomAttribute1 "XXX" -CustomAttribute2 "XXX"
+
+
